@@ -1,0 +1,63 @@
+init.vim - .bash_profile / .bashrc - .tmux
+
+MacOS Preferences
+    Display - Max scale
+    Trackpad - Max sensitivity
+    Keyboard
+        Caps Lock -> Esc
+        Max Key Repeat
+        Min Delay Until Repeat
+    Dock
+        Remove default apps
+        Shrink
+        Hide
+        Do not show recent
+    Bluetooth - show in menu
+
+--------------------------------------------------------------------------------
+
+MacOS Apps:
+  Chrome
+  Gifox
+  Spectacle
+  Flycut (CMD + 1 paste menu, no sticky)
+  Slack, Zoom
+  iTerm, VSCode, Docker
+  iTerm2
+      unlimited scrollback
+      Minimalist UI setting
+      https://iterm2.com/documentation-shell-integration.html
+      zsh -> bash (https://discussions.apple.com/thread/252176464)
+          brew install bash
+          iTerm start command in profile
+          Add to /etc/shells and chsh command
+  Adobe PDF
+  Spotify
+  Toggl
+  Evernote, Todoist
+  Freedom
+  1Pass
+  Signed in to iCloud, Chrome
+
+Google: Chrome, Slack, Todoist
+Chrome Password Manager: Spotify, Freedom
+
+--------------------------------------------------------------------------------
+
+  brew 
+      bash
+      git-lfs
+      neovim
+          init.vim (Need to put on GitHub, /path/)
+          pip install neovim, updateremoteplugins)
+      htop
+      watch
+      wget
+      bash
+      tree
+      ripgrep
+      fzf
+      tmux
+
+  # Jupyter Lab / Chrome key repeats
+  defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
