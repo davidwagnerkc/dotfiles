@@ -5,7 +5,8 @@ sudo apt-get update && sudo apt-get install \
     git-lfs \
     ripgrep \
     fzf \
-    tmux
+    tmux \
+    tree
 # neovim setup commands pip install neovim :Update.. :check.. :Plug...
 
 # https://docs.docker.com/compose/install/
