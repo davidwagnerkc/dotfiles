@@ -15,4 +15,6 @@ sudo apt-get update && sudo apt-get install \
 
 # https://www.rust-lang.org/learn/get-started
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-git config..
+
+git config --global user.name ""
+git config --global user.email ""
