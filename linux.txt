@@ -6,7 +6,9 @@ sudo apt-get update && sudo apt-get install \
     ripgrep \
     fzf \
     tmux \
-    tree
+    tree \
+    zip \
+    unzip
 # neovim setup commands pip install neovim :Update.. :check.. :Plug...
 
 # Docker Ubuntu apt-get setup https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository
