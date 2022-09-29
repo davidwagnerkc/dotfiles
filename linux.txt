@@ -9,11 +9,22 @@ sudo apt-get update && sudo apt-get install \
     tree \
     zip \
     unzip
+
+# 🐍
+wget --show-progress https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+chmod +x Miniconda3-latest-Linux-x86_64.sh
+./Miniconda3-latest-Linux-x86_64.sh
+
+conda install conda-forge::mamba
+
+# TODO: env.yml ... neovim jupyterlab jupyterlab-vim
+
 # neovim setup commands pip install neovim :Update.. :check.. :Plug...
 
-# Docker Ubuntu apt-get setup https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository
+# 🐳 Docker
+# Ubuntu apt-get setup https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository
 # docker-compose standalone https://docs.docker.com/compose/install/other/#install-compose-standalone
-# Docker permissions https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user
+# permissions https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user
 
 # https://www.rust-lang.org/learn/get-started
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
