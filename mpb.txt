@@ -13,35 +13,35 @@ MacOS Preferences
         Shrink
         Hide
         Do not show recent
-    Bluetooth - show in menu
+    Control Center Bluetooth - show in menu
 
 --------------------------------------------------------------------------------
 
 MacOS Apps:
   Chrome
+  
+  Maccy (https://maccy.app/)
+  Rectangle (https://rectangleapp.com/)
   Gifox
-  Spectacle
-  Flycut (CMD + 1 paste menu, no sticky)
-  Slack, Zoom
-  iTerm, VSCode, Docker
+  
+  
+  iTerm2, VSCode, Docker
   iTerm2
-      unlimited scrollback
-      Minimalist UI setting
+      Profiles -> Terminal -> Unlimited Scrollback
+      Appearance -> Theme -> Minimal
       https://iterm2.com/documentation-shell-integration.html
       zsh -> bash (https://discussions.apple.com/thread/252176464)
           brew install bash
-          iTerm start command in profile
+          Profiles -> General -> Custom Shell: /opt/homebrew/bin/bash
           Add to /etc/shells and chsh command
+          
+  Slack, Zoom
   Adobe PDF
   Spotify
-  Toggl
   Evernote, Todoist
-  Freedom
+  Toggl, Freedom
   1Pass
   Signed in to iCloud, Chrome
-
-Google: Chrome, Slack, Todoist
-Chrome Password Manager: Spotify, Freedom
 
 --------------------------------------------------------------------------------
 
@@ -54,7 +54,6 @@ Chrome Password Manager: Spotify, Freedom
       htop
       watch
       wget
-      bash
       tree
       ripgrep
       fzf
