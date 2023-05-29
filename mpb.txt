@@ -13,6 +13,7 @@ MacOS Preferences
         Shrink
         Hide
         Do not show recent
+        Menu Bar -> Auto hide
     Control Center Bluetooth - show in menu
 
 --------------------------------------------------------------------------------
