@@ -62,3 +62,8 @@ MacOS Apps:
 
   # Jupyter Lab / Chrome key repeats
   defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
+  
+  Install Minicond3
+  # base env packages
+  conda install conda-forge::mamba
+  pip install pynvim
