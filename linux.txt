@@ -5,6 +5,7 @@ curl "$REPO/.bashrc" >> ~/.bashrc
 mkdir -p ~/.config/nvim/
 curl "$REPO/init.vim" -o ~/.config/nvim/init.vim
 
+curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash - # for node (https://github.com/nodesource/distributions)
 sudo apt-get update && sudo apt-get -y install \
     neovim \
     git-lfs \
@@ -14,7 +15,8 @@ sudo apt-get update && sudo apt-get -y install \
     tree \
     zip \
     unzip \
-    fd-find
+    fd-find \ 
+    nodejs
 ln -s $(which fdfind) /usr/local/bin/fd  # ~/.local/bin/fd
 
 # 🐍
