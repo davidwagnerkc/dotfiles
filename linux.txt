@@ -20,6 +20,9 @@ sudo apt-get update && sudo apt-get -y install \
     nodejs
 ln -s $(which fdfind) /usr/local/bin/fd  # ~/.local/bin/fd
 
+# neovim setup
+conda activate base && pip install pynvim && conda deactivate
+
 # 🐍
 wget --show-progress https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
 chmod +x Miniconda3-latest-Linux-x86_64.sh
