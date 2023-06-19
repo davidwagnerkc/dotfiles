@@ -7,7 +7,7 @@ set -o vi
 export EDITOR=nvim
 alias vim="nvim"
 alias t="tree -L 1 -C -I '*pyc|*nbc|*nbi|__init__.py|__pycache__'"
-export PATH="/home/davidwagner/.config/nvim/plugged/fzf/bin:$PATH"
+export PATH="~/.config/nvim/plugged/fzf/bin:$PATH"
 
 # Git + Bash completion
 export BASH_COMPLETION_COMPAT_DIR="/usr/local/etc/bash_completion.d"
