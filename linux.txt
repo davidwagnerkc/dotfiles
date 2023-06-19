@@ -1,6 +1,11 @@
-# Get ~/.bashrc
-# Get ~/.config/nvim/init.vim
-sudo apt-get update && sudo apt-get install \
+REPO="https://raw.githubusercontent.com/davidwagnerkc/dotfiles/main"
+
+curl "$REPO/.bashrc" >> ~/.bashrc
+
+mkdir -p ~/.config/nvim/
+curl "$REPO/init.vim" -o ~/.config/nvim/init.vim
+
+sudo apt-get update && sudo apt-get -y install \
     neovim \
     git-lfs \
     ripgrep \
@@ -8,7 +13,9 @@ sudo apt-get update && sudo apt-get install \
     tmux \
     tree \
     zip \
-    unzip
+    unzip \
+    fd-find
+ln -s $(which fdfind) /usr/local/bin/fd  # ~/.local/bin/fd
 
 # 🐍
 wget --show-progress https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
