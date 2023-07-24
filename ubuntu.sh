@@ -2,7 +2,7 @@ REPO="https://raw.githubusercontent.com/davidwagnerkc/dotfiles/main"
 
 curl -s "$REPO/.bashrc" >> ~/.bashrc
 
-curl -s "$REPO/start.sh" >> ~/
+curl -s "$REPO/start.sh" -o ~/start.sh
 
 mkdir -p ~/.config/nvim/
 curl -s "$REPO/init.vim" -o ~/.config/nvim/init.vim
