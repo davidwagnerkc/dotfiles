@@ -11,10 +11,7 @@ curl -s "$REPO/.tmux.conf" -o ~/.tmux.conf
 
 mkdir -p ~/git
 
-curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -  # for node (https://github.com/nodesource/distributions)
-sudo add-apt-repository ppa:neovim-ppa/stable -y  # neovim (https://github.com/neovim/neovim/wiki/Installing-Neovim#ubuntu)
 sudo apt-get update && sudo apt-get -y install \
-    neovim \
     git-lfs \
     ripgrep \
     fzf \
@@ -22,9 +19,13 @@ sudo apt-get update && sudo apt-get -y install \
     tree \
     zip \
     unzip \
-    fd-find \
-    nodejs
+    fd-find
 sudo ln -s $(which fdfind) /usr/local/bin/fd  # ~/.local/bin/fd
+
+curl -LO https://github.com/neovim/neovim/releases/download/stable/nvim.appimage
+chmod u+x nvim.appimage
+mkdir -p ~/.local/bin
+mv nvim.appimage ~/.local/bin/nvim
 
 # 🐍
 # curl https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -o miniconda.sh
