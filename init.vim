@@ -16,9 +16,10 @@ Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'} " syntax highlighting
 Plug 'jeetsukumaran/vim-pythonsense'                   " Python text objects
 Plug 'airblade/vim-rooter'                             " pwd -> project root
 Plug 'neoclide/coc.nvim', {'branch': 'release'}        " code completion + :CocInstall coc-pyright
+Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }
 call plug#end()
 
-let g:python3_host_prog = '/Users/davidwagner/miniconda3/bin/python'
+let g:python3_host_prog = 'python'
 
 "" Run Black on save
 "autocmd BufWritePre *.py execute ':Black'
