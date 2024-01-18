@@ -29,11 +29,8 @@ mv nvim.appimage ~/.local/bin/nvim
 
 # 🐍
 # curl https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -o miniconda.sh
-# chmod +x miniconda.sh
-# ./miniconda.sh
-# conda install conda-forge::mamba
-# mamba init
-# mamba env update --name dev --file env.yml
+# bash miniconda.sh
+# conda env update --name dev --file env.yml
 
 # neovim setup
 # 0. Set python path in init.vim
