@@ -1,4 +1,4 @@
-REPO="https://raw.githubusercontent.com/davidwagnerkc/dotfiles/main"
+export REPO="https://raw.githubusercontent.com/davidwagnerkc/dotfiles/main"
 
 curl -s "$REPO/.bashrc" >> ~/.bashrc
 
