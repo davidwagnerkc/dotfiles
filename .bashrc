@@ -23,5 +23,7 @@ export COMPOSE_DOCKER_CLI_BUILD=1
 
 export PATH="~/.local/bin:$PATH"
 
+export PYTHONBREAKPOINT=ipdb.set_trace
+
 ###############################################################################
 ###############################################################################
