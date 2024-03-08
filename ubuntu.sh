@@ -39,7 +39,7 @@ rm node.tar.xz
 # 0. Set python path in init.vim
 # 1. pip install pynvim
 # 2. vim (autoinstalls everything in init.vim)
-# 3. :UpdateRemovePlugings
+# 3. :UpdateRemotePlugings
 
 # jupyter
 # pip install jupyterlab jupyterlab-vim ipdb
