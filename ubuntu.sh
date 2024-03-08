@@ -26,6 +26,10 @@ chmod u+x nvim.appimage
 mkdir -p ~/.local/bin
 mv nvim.appimage ~/.local/bin/nvim
 
+wget https://nodejs.org/dist/v20.11.1/node-v20.11.1-linux-x64.tar.xz -O node.tar.xz
+sudo tar -xJf node.tar.xz -C /usr/local --strip-components=1
+rm node.tar.xz
+
 # 🐍
 # curl https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -o miniconda.sh
 # bash miniconda.sh
