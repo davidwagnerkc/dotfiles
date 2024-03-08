@@ -41,6 +41,10 @@ rm node.tar.xz
 # 2. vim (autoinstalls everything in init.vim)
 # 3. :UpdateRemovePlugings
 
+# jupyter
+# pip install jupyterlab jupyterlab-vim
+# https://github.com/johnnybarrels/jupyterlab_onedarkpro/pull/14#issuecomment-1906559911
+
 # 🐳 Docker
 # Ubuntu apt-get setup https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository
 # docker-compose standalone https://docs.docker.com/compose/install/other/#install-compose-standalone
