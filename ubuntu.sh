@@ -42,7 +42,7 @@ rm node.tar.xz
 # 3. :UpdateRemovePlugings
 
 # jupyter
-# pip install jupyterlab jupyterlab-vim
+# pip install jupyterlab jupyterlab-vim ipdb
 # https://github.com/johnnybarrels/jupyterlab_onedarkpro/pull/14#issuecomment-1906559911
 
 # 🐳 Docker
