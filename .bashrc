@@ -23,6 +23,7 @@ export COMPOSE_DOCKER_CLI_BUILD=1
 
 export PATH="~/.local/bin:$PATH"
 
+conda config --set changeps1 False
 export PYTHONBREAKPOINT=ipdb.set_trace
 
 ###############################################################################
