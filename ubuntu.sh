@@ -52,3 +52,4 @@ rm node.tar.xz
 
 git config --global user.name "David Wagner"
 git config --global user.email "david@wagnerkc.com"
+git config pull.rebase false
