@@ -30,7 +30,7 @@ wget https://nodejs.org/dist/v20.11.1/node-v20.11.1-linux-x64.tar.xz -O node.tar
 sudo tar -xJf node.tar.xz -C /usr/local --strip-components=1
 rm node.tar.xz
 
-# 🐍
+# 🐍 (Replace with Miniforge?)
 # curl https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -o miniconda.sh
 # bash miniconda.sh
 # conda env update --name dev --file env.yml
@@ -52,4 +52,4 @@ rm node.tar.xz
 
 git config --global user.name "David Wagner"
 git config --global user.email "david@wagnerkc.com"
-git config pull.rebase false
+git config --global pull.rebase false
