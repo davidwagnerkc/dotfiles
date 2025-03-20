@@ -46,7 +46,7 @@ MacOS Apps:
 
 --------------------------------------------------------------------------------
 
-brew install htop btop watch wget tree ripgrep fzf tmux fd uv neovim cmake node
+brew install bash htop btop watch wget tree ripgrep fzf tmux fd uv neovim cmake node
   brew 
       bash
       git-lfs
