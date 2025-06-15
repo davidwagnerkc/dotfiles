@@ -5,3 +5,5 @@
 # Please adapt and uncomment the following lines:
 #	name = Wagner
 #	email = dwcgt@kc-sse-ml-rn04.cluster
+[pull]
+	rebase = false
