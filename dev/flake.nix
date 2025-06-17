@@ -9,18 +9,25 @@
   in
   {
     devShells.${system}.default = pkgs.mkShell {
-      buildInputs = [
-        pkgs.ripgrep 
-        pkgs.tmux 
-        pkgs.nodejs 
-        pkgs.fd
-        pkgs.tree
-        pkgs.fzf
-        pkgs.neovim 
-        pkgs.bashInteractive 
-        pkgs.bash-completion
+      buildInputs = with pkgs; [
+        ripgrep 
+        tmux 
+        nodejs 
+        fd
+        tree
+        fzf
+        neovim 
+        bashInteractive 
+        bash-completion
+        gcc
+        uv
       ];
       shellHook = ''
+        module purge
+        cd "$HOME/git/dotfiles/dev/"
+        uv sync
+        source "$HOME/git/dotfiles/dev/.venv/bin/activate"
+
         export GIT_SSH_COMMAND='ssh -F ~/.ssh/config'
         if [[ $- == *i* ]] && [ -f "${pkgs.bash-completion}/etc/profile.d/bash_completion.sh" ]; then
           source "${pkgs.bash-completion}/etc/profile.d/bash_completion.sh"
@@ -29,6 +36,17 @@
           set -o vi
         fi
         export FZF_DEFAULT_COMMAND="fd --type f"
+
+        set -o vi
+        export EDITOR=nvim
+        alias vim="nvim"
+        alias t="tree -L 1 -C -I '*pyc|*nbc|*nbi|__init__.py|__pycache__'"
+        export PATH="~/.config/nvim/plugged/fzf/bin:$PATH"
+        if [ ! -f ~/.git-completion.bash ]; then
+          curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -o ~/.git-completion.bash
+        fi
+        source ~/.git-completion.bash
+        export PYTHONBREAKPOINT=ipdb.set_trace
       '';
     };
   };
