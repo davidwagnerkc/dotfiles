@@ -124,8 +124,9 @@ print(f'CPU: {cpus:2d}/128 GPU:{gpus}/8')
                 --error=/home/dwcgt/logs/%j.log \
                 --open-mode=append \
                 --export=NONE \
-    	    --wrap='tmux new -d -s dev; sleep infinity'
+    	        --wrap='sleep infinity'
         )
+    	# --wrap='tmux new -d -s dev; sleep infinity'
         echo "Submitted job $JOB_ID — waiting for it to start…"
         while [[ $(squeue -h -j $JOB_ID -o "%T") != RUNNING ]]; do sleep 1; done
     fi
@@ -135,7 +136,8 @@ print(f'CPU: {cpus:2d}/128 GPU:{gpus}/8')
         --cpus-per-task=$CPUS \
         --gres=gpu:$GPUS \
         --jobid="$JOB_ID" \
-        --pty bash -li
+        --pty bash -lic 'NP_RUNTIME=bwrap nix develop $HOME/dev'
+    # --pty bash -li
     ;;
   edit)
     vim $HOME/git/dotfiles/slurm/sl.sh
