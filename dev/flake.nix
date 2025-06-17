@@ -21,6 +21,7 @@
         pkgs.bash-completion
       ];
       shellHook = ''
+        export GIT_SSH_COMMAND='ssh -F ~/.ssh/config'
         if [[ $- == *i* ]] && [ -f "${pkgs.bash-completion}/etc/profile.d/bash_completion.sh" ]; then
           source "${pkgs.bash-completion}/etc/profile.d/bash_completion.sh"
         fi
