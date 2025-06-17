@@ -24,9 +24,9 @@
       ];
       shellHook = ''
         module purge
-        cd "$HOME/git/dotfiles/dev/"
+        cd "$HOME/git/dotfiles/"
         uv sync
-        source "$HOME/git/dotfiles/dev/.venv/bin/activate"
+        source "$HOME/git/dotfiles/.venv/bin/activate"
 
         export GIT_SSH_COMMAND='ssh -F ~/.ssh/config'
         if [[ $- == *i* ]] && [ -f "${pkgs.bash-completion}/etc/profile.d/bash_completion.sh" ]; then

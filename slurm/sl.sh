@@ -56,7 +56,7 @@ print(f'CPU: {cpus:2d}/128 GPU:{gpus}/8')
   shell)
     host=${2:+-w $host_base$2}
     echo "Starting on $host..."
-    srun -p research -t120 $host --pty bash -lic 'NP_RUNTIME=bwrap nix develop $HOME/git/dotfiles/dev'
+    srun -p research -t120 $host --pty bash -lic 'NP_RUNTIME=bwrap nix develop $HOME/git/dotfiles/'
     ;;
   quota)
     quota -s
