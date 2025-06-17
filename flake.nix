@@ -22,7 +22,9 @@
         gcc
         uv
       ];
+      shell = "${pkgs.bashInteractive}/bin/bash";
       shellHook = ''
+        export SHELL=${pkgs.bashInteractive}/bin/bash
         module purge
         cd "$HOME/git/dotfiles/"
         uv sync
