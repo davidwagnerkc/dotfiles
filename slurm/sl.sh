@@ -2,6 +2,7 @@ mapfile -t nodes < <(sinfo -h -p research -o "%n %G" | grep -v null | awk '{prin
 host=$(hostname -s)
 host_base=${host::-2}
 fmt="%12P %20j %8u %12M %12l %5C %14b"
+NIX_SHELL='NP_RUNTIME=bwrap nix develop $HOME/git/dotfiles/'
 
 case "${1:-}" in
   status)
@@ -53,11 +54,6 @@ print(f'CPU: {cpus:2d}/128 GPU:{gpus}/8')
       echo
     done
     ;;
-  shell)
-    host=${2:+-w $host_base$2}
-    echo "Starting on $host..."
-    srun -p research -t120 $host --pty bash -lic 'NP_RUNTIME=bwrap nix develop $HOME/git/dotfiles/'
-    ;;
   quota)
     quota -s
     ;;
@@ -75,7 +71,13 @@ print(f'CPU: {cpus:2d}/128 GPU:{gpus}/8')
     cat $HOME/logs/$f
     ;;
   cp)
-    [[ -t 0 ]] || printf '\e]52;c;%s\a' "$(base64 | tr -d '\n')"
+    # if [ -n "$TMUX" ]; then
+    #   MSG='\ePtmux;\e\e]52;c;%s\a\e\\'
+    # else
+    #   MSG='\e]52;c;%s\a'
+    # fi
+    MSG='\e]52;c;%s\a'
+    [[ -t 0 ]] || base64 | tr -d '\n' | xargs -0 printf "$MSG"
     ;;
   dev)
     CPUS=8
@@ -85,19 +87,17 @@ print(f'CPU: {cpus:2d}/128 GPU:{gpus}/8')
     while getopts ":c:g:t:" opt; do
       echo $opt
       case "$opt" in
-        c) CPUS=$OPTARG      ;;  # -c 16
-        g) GPUS=$OPTARG      ;;  # -g 1
+        c) CPUS=$OPTARG      ;;
+        g) GPUS=$OPTARG      ;;
         t) 
-           # allow user to pass minutes (e.g. -t30) or full HH:MM:SS
            if [[ $OPTARG =~ ^[0-9]+$ ]]; then
-             # just minutes → HH:MM:SS
              TIME=$(printf "00:%02d:00" "$OPTARG")
            else
              TIME=$OPTARG
            fi
            ;;
         *) 
-           echo "Usage: $0 dev [-c cpus] [-g gpus] [-t minutes|HH:MM:SS]" >&2
+           echo "Usage: $0 dev [-c cpus] [-g gpus] [-t minutes|HH:MM:SS] e.g. sl dev -c16 -g1 -t30 or sl dev -t12:00:00" >&2
            exit 1
            ;;
       esac
@@ -126,7 +126,6 @@ print(f'CPU: {cpus:2d}/128 GPU:{gpus}/8')
                 --export=NONE \
     	        --wrap='sleep infinity'
         )
-    	# --wrap='tmux new -d -s dev; sleep infinity'
         echo "Submitted job $JOB_ID — waiting for it to start…"
         while [[ $(squeue -h -j $JOB_ID -o "%T") != RUNNING ]]; do sleep 1; done
     fi
@@ -136,8 +135,11 @@ print(f'CPU: {cpus:2d}/128 GPU:{gpus}/8')
         --cpus-per-task=$CPUS \
         --gres=gpu:$GPUS \
         --jobid="$JOB_ID" \
-        --pty bash -lic 'NP_RUNTIME=bwrap nix develop $HOME/git/dotfiles/dev'
-    # --pty bash -li
+        --pty bash -lic "$NIX_SHELL";;
+  shell)
+    host=${2:+-w $host_base$2}
+    echo "Starting on $host..."
+    srun -p research -t120 $host --pty bash -lic "$NIX_SHELL"
     ;;
   edit)
     if command -v nvim >/dev/null 2>&1; then
@@ -147,8 +149,6 @@ print(f'CPU: {cpus:2d}/128 GPU:{gpus}/8')
     fi
     ;;
   affinity)
-    # python -c 'import os; from psutil import Process; p = Process(); print(f"CPU affinity: {p.cpu_affinity()}")'
-    # taskset -pc $$
     echo "$(nproc)/$(nproc --all)"
     nvidia-smi
     ;;

@@ -101,3 +101,7 @@ nnoremap <silent> <leader>e :e $MYVIMRC<cr>
 "" Center on search
 nnoremap n nzz  
 nnoremap <S-n> <S-n>zz
+
+"" Shell
+set shell=bash
+set shellcmdflag=-ilc

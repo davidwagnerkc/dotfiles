@@ -29,7 +29,6 @@
         cd "$HOME/git/dotfiles/"
         uv sync
         source "$HOME/git/dotfiles/.venv/bin/activate"
-
         export GIT_SSH_COMMAND='ssh -F ~/.ssh/config'
         if [[ $- == *i* ]] && [ -f "${pkgs.bash-completion}/etc/profile.d/bash_completion.sh" ]; then
           source "${pkgs.bash-completion}/etc/profile.d/bash_completion.sh"
@@ -38,11 +37,6 @@
           set -o vi
         fi
         export FZF_DEFAULT_COMMAND="fd --type f"
-
-        set -o vi
-        export EDITOR=nvim
-        alias vim="nvim"
-        alias t="tree -L 1 -C -I '*pyc|*nbc|*nbi|__init__.py|__pycache__'"
         export PATH="~/.config/nvim/plugged/fzf/bin:$PATH"
         if [ ! -f ~/.git-completion.bash ]; then
           curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -o ~/.git-completion.bash
@@ -58,3 +52,21 @@
     };
   };
 }
+
+/*
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/opt/ohpc/pub/apps/anaconda/2024.10/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/opt/ohpc/pub/apps/anaconda/2024.10/etc/profile.d/conda.sh" ]; then
+        . "/opt/ohpc/pub/apps/anaconda/2024.10/etc/profile.d/conda.sh"
+    else
+        export PATH="/opt/ohpc/pub/apps/anaconda/2024.10/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+conda activate zdev
+*/
