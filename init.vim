@@ -17,6 +17,7 @@ Plug 'jeetsukumaran/vim-pythonsense'                   " Python text objects
 Plug 'airblade/vim-rooter'                             " pwd -> project root
 Plug 'neoclide/coc.nvim', {'branch': 'release'}        " code completion + :CocInstall coc-pyright
 Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }
+Plug 'git@github.com:github/copilot.vim.git'
 call plug#end()
 
 let g:python3_host_prog = 'python'

@@ -49,6 +49,11 @@
         fi
         source ~/.git-completion.bash
         export PYTHONBREAKPOINT=ipdb.set_trace
+        if ! tmux has-session -t dev 2>/dev/null; then
+          tmux new -s dev
+        else
+          tmux a -t dev
+        fi
       '';
     };
   };

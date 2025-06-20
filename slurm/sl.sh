@@ -140,7 +140,7 @@ print(f'CPU: {cpus:2d}/128 GPU:{gpus}/8')
     # --pty bash -li
     ;;
   edit)
-    vim $HOME/git/dotfiles/slurm/sl.sh
+    nvim $HOME/git/dotfiles/slurm/sl.sh >> /dev/null 2>&1 || vim $HOME/git/dotfiles/slurm/sl.sh
     ;;
   affinity)
     # python -c 'import os; from psutil import Process; p = Process(); print(f"CPU affinity: {p.cpu_affinity()}")'
