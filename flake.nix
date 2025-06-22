@@ -24,6 +24,7 @@
       shell = "${pkgs.bashInteractive}/bin/bash";
       shellHook = ''
         export SHELL=${pkgs.bashInteractive}/bin/bash
+        [ -f ~/.bashrc ] && source ~/.bashrc
         if ! tmux has-session -t jl 2>/dev/null; then
             export JL_OOD_HOST=ood.umkc.edu
             export JL_HOST=$(hostname -f)
@@ -41,7 +42,8 @@
               --ServerApp.allow_credentials=True \
               --ServerApp.allow_remote_access=True" C-m
             echo -e "host: $JL_HOST\nport: $JL_PORT\ntoken: $JL_TOKEN" > connection.yml
-            echo $JL_URL
+            echo $JL_URL | sl cp
+            echo $JL_URL >> connection-url.txt
         fi
         if ! tmux has-session -t dev 2>/dev/null; then
           tmux new -s dev

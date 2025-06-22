@@ -142,11 +142,22 @@ print(f'CPU: {cpus:2d}/128 GPU:{gpus}/8')
     srun -p research -t120 $host --pty bash -lic "$NIX_SHELL"
     ;;
   edit)
-    if command -v nvim >/dev/null 2>&1; then
-      nvim $HOME/git/dotfiles/slurm/sl.sh
-    else
-      vim $HOME/git/dotfiles/slurm/sl.sh
-    fi
+    target=${2:-sl}
+    case "$target" in
+      sl)
+        $EDITOR ~/git/dotfiles/slurm/sl.sh
+        ;;
+      nix)
+        $EDITOR ~/git/dotfiles/flake.nix
+        ;;
+      vim)
+        $EDITOR ~/git/dotfiles/init.vim
+        ;;
+      *)
+        echo "Usage: sl edit [sl|nix|vim]"
+        exit 1
+        ;;
+    esac
     ;;
   nix)
     if command -v nvim >/dev/null 2>&1; then
