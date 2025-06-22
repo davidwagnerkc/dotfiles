@@ -1,0 +1,38 @@
+
+###############################################################################
+###############################################################################
+
+case "$(hostname)" in
+  kc-sse-ml-ln01)
+    conda deactivate || true
+    conda deactivate || true
+    export PS1="\[\e[30;43m\][LOGIN-NODE]\[\e[0m\] \[\e[97m\]\$ \[\e[0m\]"
+    ;;
+  kc-sse-ml-rn00)
+    export PS1="α₀ "
+    ;;
+  kc-sse-ml-rn00)
+    export PS1="α₁ "
+    ;;
+  kc-sse-ml-rn00)
+    export PS1="α₂ "
+    ;;
+  kc-sse-ml-rn00)
+    export PS1="α₃ "
+    ;;
+  kc-sse-ml-rn04)
+    export PS1="λ₀ "
+    ;;
+  kc-sse-ml-rn05)
+    export PS1="λ₁ "
+    ;;
+  *)
+    ;;
+esac
+if [ -n "${IN_NIX_SHELL:-}" ]; then
+    set -o vi
+else
+    set -o vi
+fi
+
+alias sl="$HOME/git/dotfiles/slurm/sl.sh"
