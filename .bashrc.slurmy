@@ -1,7 +1,3 @@
-
-###############################################################################
-###############################################################################
-
 case "$(hostname)" in
   kc-sse-ml-ln01)
     conda deactivate || true
@@ -30,9 +26,44 @@ case "$(hostname)" in
     ;;
 esac
 if [ -n "${IN_NIX_SHELL:-}" ]; then
-    set -o vi
-else
-    set -o vi
+    module purge
+    cd "$HOME/git/dotfiles/" && uv sync && source "$HOME/git/dotfiles/.venv/bin/activate" && cd
+    export GIT_SSH_COMMAND='ssh -F ~/.ssh/config'
+    export FZF_DEFAULT_COMMAND="fd --type f"
+    export PATH="$HOME/.config/nvim/plugged/fzf/bin:$PATH"
+    export PYTHONBREAKPOINT=ipdb.set_trace
+    export EDITOR=nvim
+    alias vim="nvim"
+    alias t="tree -L 1 -C -I '*pyc|*nbc|*nbi|__init__.py|__pycache__'"
 fi
 
+[[ ":$PATH:" != *":$HOME/.local/bin:"* ]] && export PATH="$HOME/.local/bin:$PATH"
 alias sl="$HOME/git/dotfiles/slurm/sl.sh"
+set -o vi
+export BASH_COMPLETION_COMPAT_DIR="/usr/local/etc/bash_completion.d"
+[[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"
+if [ ! -f ~/.git-completion.bash ]; then
+  curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -o ~/.git-completion.bash
+fi
+source ~/.git-completion.bash
+if [ ! -f ~/.git-completion.bash ]; then
+  curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -o ~/.git-completion.bash
+fi
+source ~/.git-completion.bash
+
+# # >>> conda initialize >>>
+# # !! Contents within this block are managed by 'conda init' !!
+# __conda_setup="$('/opt/ohpc/pub/apps/anaconda/2024.10/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+# if [ $? -eq 0 ]; then
+#     eval "$__conda_setup"
+# else
+#     if [ -f "/opt/ohpc/pub/apps/anaconda/2024.10/etc/profile.d/conda.sh" ]; then
+#         . "/opt/ohpc/pub/apps/anaconda/2024.10/etc/profile.d/conda.sh"
+#     else
+#         export PATH="/opt/ohpc/pub/apps/anaconda/2024.10/bin:$PATH"
+#     fi
+# fi
+# unset __conda_setup
+# # <<< conda initialize <<<
+# conda activate zdev
+
