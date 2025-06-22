@@ -62,9 +62,13 @@ print(f'CPU: {cpus:2d}/128 GPU:{gpus}/8')
     ;;
   proc)
     ps -u "$USER" \
-      -o pid,tty,etime,%cpu,%mem,cmd \
-      --forest \
+      -o pid,tty,start_time,etime,%cpu,%mem,cmd \
       --sort=start_time
+    echo
+    echo
+    ps -u "$USER" \
+      -o pid,tty,start_time,etime,%cpu,%mem,cmd \
+      --forest
     ;;
   log)
     f=$(ls -1t $HOME/logs/ | head -n1)
