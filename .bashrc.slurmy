@@ -3,6 +3,7 @@ case "$(hostname)" in
     conda deactivate || true
     conda deactivate || true
     export PS1="\[\e[30;43m\][LOGIN-NODE]\[\e[0m\] \[\e[97m\]\$ \[\e[0m\]"
+    export EDITOR=vim
     ;;
   kc-sse-ml-rn00)
     export PS1="α₀ "

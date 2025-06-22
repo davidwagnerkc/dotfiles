@@ -31,6 +31,9 @@ print(f'CPU: {cpus:2d}/128 GPU:{gpus}/8')
       "
     done
     ;;
+  jl)
+    echo $JL_URL | base64 | tr -d '\n' | xargs -0 printf '\e]52;c;%s\a'
+    ;;
   usage)
     for node in "${nodes[@]}"; do
       echo "===== $node ====="
@@ -75,13 +78,7 @@ print(f'CPU: {cpus:2d}/128 GPU:{gpus}/8')
     cat $HOME/logs/$f
     ;;
   cp)
-    # if [ -n "$TMUX" ]; then
-    #   MSG='\ePtmux;\e\e]52;c;%s\a\e\\'
-    # else
-    #   MSG='\e]52;c;%s\a'
-    # fi
-    MSG='\e]52;c;%s\a'
-    [[ -t 0 ]] || base64 | tr -d '\n' | xargs -0 printf "$MSG"
+    [[ -t 0 ]] || base64 | tr -d '\n' | xargs -0 printf '\e]52;c;%s\a'
     ;;
   dev)
     CPUS=8
@@ -128,7 +125,7 @@ print(f'CPU: {cpus:2d}/128 GPU:{gpus}/8')
                 --error=/home/dwcgt/logs/%j.log \
                 --open-mode=append \
                 --export=NONE \
-    	        --wrap='sleep infinity'
+                --wrap="NP_RUNTIME=bwrap nix develop $HOME/git/dotfiles/ --command $HOME/git/dotfiles/slurm/start-tmux.sh; sleep infinity"
         )
         echo "Submitted job $JOB_ID — waiting for it to start…"
         while [[ $(squeue -h -j $JOB_ID -o "%T") != RUNNING ]]; do sleep 1; done
@@ -139,7 +136,8 @@ print(f'CPU: {cpus:2d}/128 GPU:{gpus}/8')
         --cpus-per-task=$CPUS \
         --gres=gpu:$GPUS \
         --jobid="$JOB_ID" \
-        --pty bash -lic "$NIX_SHELL";;
+        --pty bash -lic "$NIX_SHELL"
+    ;;
   shell)
     host=${2:+-w $host_base$2}
     echo "Starting on $host..."
