@@ -148,6 +148,13 @@ print(f'CPU: {cpus:2d}/128 GPU:{gpus}/8')
       vim $HOME/git/dotfiles/slurm/sl.sh
     fi
     ;;
+  nix)
+    if command -v nvim >/dev/null 2>&1; then
+      nvim $HOME/git/dotfiles/flake.nix
+    else
+      vim $HOME/git/dotfiles/flake.nix
+    fi
+    ;;
   affinity)
     echo "$(nproc)/$(nproc --all)"
     nvidia-smi
