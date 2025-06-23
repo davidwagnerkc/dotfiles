@@ -38,6 +38,7 @@ if [ -n "${IN_NIX_SHELL:-}" ]; then
     alias t="tree -L 1 -C -I '*pyc|*nbc|*nbi|__init__.py|__pycache__'"
 fi
 
+export NP_RUNTIME=bwrap
 [[ ":$PATH:" != *":$HOME/.local/bin:"* ]] && export PATH="$HOME/.local/bin:$PATH"
 alias sl="$HOME/git/dotfiles/slurm/sl.sh"
 set -o vi

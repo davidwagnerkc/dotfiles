@@ -81,9 +81,9 @@ print(f'CPU: {cpus:2d}/128 GPU:{gpus}/8')
     [[ -t 0 ]] || base64 | tr -d '\n' | xargs -0 printf '\e]52;c;%s\a'
     ;;
   dev)
-    CPUS=8
-    GPUS=0
-    TIME=00:60:00 
+    CPUS=16
+    GPUS=1
+    TIME=02:00:00 
     shift
     while getopts ":c:g:t:" opt; do
       echo $opt
@@ -130,6 +130,7 @@ print(f'CPU: {cpus:2d}/128 GPU:{gpus}/8')
         echo "Submitted job $JOB_ID — waiting for it to start…"
         while [[ $(squeue -h -j $JOB_ID -o "%T") != RUNNING ]]; do sleep 1; done
     fi
+    sleep 1
     echo "Starting shell in job $JOB_ID…"
     srun \
         --ntasks=1 \
@@ -145,6 +146,7 @@ print(f'CPU: {cpus:2d}/128 GPU:{gpus}/8')
     ;;
   edit)
     target=${2:-sl}
+    $EDITOR ~/git/dotfiles/slurm/sl.sh ~/git/dotfiles/flake.nix ~/git/dotfiles/.bashrc.slurmy ~/git/dotfiles/slurm/start-tmux.sh
     case "$target" in
       sl)
         $EDITOR ~/git/dotfiles/slurm/sl.sh
