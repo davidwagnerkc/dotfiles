@@ -83,7 +83,7 @@ print(f'CPU: {cpus:2d}/128 GPU:{gpus}/8')
   dev)
     CPUS=16
     GPUS=1
-    TIME=02:00:00 
+    TIME=08:00:00 
     shift
     while getopts ":c:g:t:" opt; do
       echo $opt

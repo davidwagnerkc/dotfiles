@@ -38,6 +38,16 @@ if [ -n "${IN_NIX_SHELL:-}" ]; then
     alias t="tree -L 1 -C -I '*pyc|*nbc|*nbi|__init__.py|__pycache__'"
 fi
 
+deactivate_path() {
+    PATH=$(
+        echo "$PATH" \
+            | tr ':' '\n' \
+            | grep -v '/home/dwcgt/git/dotfiles/.venv/bin' \
+            | tr '\n' ':' \
+            | sed 's/:$//'
+    )
+    export PATH
+}
 export NP_RUNTIME=bwrap
 [[ ":$PATH:" != *":$HOME/.local/bin:"* ]] && export PATH="$HOME/.local/bin:$PATH"
 alias sl="$HOME/git/dotfiles/slurm/sl.sh"
@@ -52,20 +62,4 @@ if [ ! -f ~/.git-completion.bash ]; then
   curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -o ~/.git-completion.bash
 fi
 source ~/.git-completion.bash
-
-# # >>> conda initialize >>>
-# # !! Contents within this block are managed by 'conda init' !!
-# __conda_setup="$('/opt/ohpc/pub/apps/anaconda/2024.10/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
-# if [ $? -eq 0 ]; then
-#     eval "$__conda_setup"
-# else
-#     if [ -f "/opt/ohpc/pub/apps/anaconda/2024.10/etc/profile.d/conda.sh" ]; then
-#         . "/opt/ohpc/pub/apps/anaconda/2024.10/etc/profile.d/conda.sh"
-#     else
-#         export PATH="/opt/ohpc/pub/apps/anaconda/2024.10/bin:$PATH"
-#     fi
-# fi
-# unset __conda_setup
-# # <<< conda initialize <<<
-# conda activate zdev
 
