@@ -144,24 +144,29 @@ print(f'CPU: {cpus:2d}/128 GPU:{gpus}/8')
     echo "Starting on $host..."
     srun -p research -t120 $host --pty bash -lic "$NIX_SHELL"
     ;;
+  shellbash)
+    host=${2:+-w $host_base$2}
+    echo "Starting on $host..."
+    srun -p research -t120 $host --pty bash -li
+    ;;
   edit)
     target=${2:-sl}
     $EDITOR ~/git/dotfiles/slurm/sl.sh ~/git/dotfiles/flake.nix ~/git/dotfiles/.bashrc.slurmy ~/git/dotfiles/slurm/start-tmux.sh
-    case "$target" in
-      sl)
-        $EDITOR ~/git/dotfiles/slurm/sl.sh
-        ;;
-      nix)
-        $EDITOR ~/git/dotfiles/flake.nix
-        ;;
-      vim)
-        $EDITOR ~/git/dotfiles/init.vim
-        ;;
-      *)
-        echo "Usage: sl edit [sl|nix|vim]"
-        exit 1
-        ;;
-    esac
+    # case "$target" in
+    #   sl)
+    #     $EDITOR ~/git/dotfiles/slurm/sl.sh
+    #     ;;
+    #   nix)
+    #     $EDITOR ~/git/dotfiles/flake.nix
+    #     ;;
+    #   vim)
+    #     $EDITOR ~/git/dotfiles/init.vim
+    #     ;;
+    #   *)
+    #     echo "Usage: sl edit [sl|nix|vim]"
+    #     exit 1
+    #     ;;
+    # esac
     ;;
   nix)
     if command -v nvim >/dev/null 2>&1; then

@@ -20,9 +20,13 @@
         bashInteractive 
         gcc
         uv
+        glibcLocales
       ];
       shell = "${pkgs.bashInteractive}/bin/bash";
       shellHook = ''
+        export LOCALE_ARCHIVE=${pkgs.glibcLocales}/lib/locale/locale-archive
+        export LANG=en_US.UTF-8
+        export LC_ALL=en_US.UTF-8
         export SHELL=${pkgs.bashInteractive}/bin/bash
         [ -f ~/.bashrc ] && source ~/.bashrc
         if ! tmux has-session -t dev 2>/dev/null; then
