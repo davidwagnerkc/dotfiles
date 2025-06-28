@@ -1,6 +1,6 @@
 mapfile -t nodes < <(sinfo -h -p research -o "%n %G" | grep -v null | awk '{print $1}' | sort)
 host=$(hostname -s)
-host_base=${host::-2}
+host_base="kc-sse-ml-rn"
 fmt="%12P %20j %8u %12M %12l %5C %14b"
 NIX_SHELL='NP_RUNTIME=bwrap nix develop $HOME/git/dotfiles/'
 
