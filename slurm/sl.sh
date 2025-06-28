@@ -4,7 +4,18 @@ host_base="kc-sse-ml-rn"
 fmt="%12P %20j %8u %12M %12l %5C %14b"
 NIX_SHELL='NP_RUNTIME=bwrap nix develop $HOME/git/dotfiles/'
 
+cp () {
+    [[ -t 0 ]] || base64 | tr -d '\n' | xargs -0 printf '\e]52;c;%s\a'
+}
+
 case "${1:-}" in
+  switch)
+    if [[ -n $VIRTUAL_ENV ]]; then
+      echo "deactivate && deactivate_path && conda activate pderefiner" | cp
+    else
+      echo "conda deactivate && source $HOME/git/dotfiles/.venv/bin/activate" | cp
+    fi
+    ;;
   status)
     eval "$(conda shell.bash hook)"
     conda activate zdev
