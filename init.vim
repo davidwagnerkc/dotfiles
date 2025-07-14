@@ -12,7 +12,7 @@ Plug 'tpope/vim-fugitive'                              " git
 Plug 'sheerun/vim-polyglot'                            " multi-language pack
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }    " fuzzy finder files
 Plug 'psf/black'                                       " Python autoformatter
-Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'} " syntax highlighting
+" Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'} " syntax highlighting
 Plug 'jeetsukumaran/vim-pythonsense'                   " Python text objects
 Plug 'airblade/vim-rooter'                             " pwd -> project root
 Plug 'neoclide/coc.nvim', {'branch': 'release'}        " code completion + :CocInstall coc-pyright

@@ -11,10 +11,15 @@ cp () {
 case "${1:-}" in
   switch)
     if [[ -n $VIRTUAL_ENV ]]; then
-      echo "deactivate && deactivate_path && conda activate pderefiner" | cp
+      # echo "deactivate && deactivate_path && conda activate pderefiner" | cp
+      cmd="deactivate && deactivate_path && conda activate pderefiner"
     else
-      echo "conda deactivate && source $HOME/git/dotfiles/.venv/bin/activate" | cp
+      # echo "conda deactivate && source $HOME/git/dotfiles/.venv/bin/activate" | cp
+      cmd="conda deactivate && source $HOME/git/dotfiles/.venv/bin/activate"
     fi
+    tmux send-keys -R C-m
+    tmux send-keys -R C-m
+    tmux send-keys -R -l "${cmd}"
     ;;
   status)
     eval "$(conda shell.bash hook)"
