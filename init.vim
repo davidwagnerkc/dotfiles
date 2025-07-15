@@ -11,6 +11,7 @@ Plug 'joshdick/onedark.vim'                            " color scheme
 Plug 'tpope/vim-fugitive'                              " git
 Plug 'sheerun/vim-polyglot'                            " multi-language pack
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }    " fuzzy finder files
+Plug 'junegunn/fzf.vim'
 Plug 'psf/black'                                       " Python autoformatter
 " Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'} " syntax highlighting
 Plug 'jeetsukumaran/vim-pythonsense'                   " Python text objects
@@ -66,7 +67,6 @@ set incsearch
 set ignorecase
 set smartcase
 
-set shell=$SHELL
 
 if has('macunix')
   " let mapleader = \<Space>"
@@ -79,12 +79,8 @@ endif
 let mapleader=" "
 nnoremap <SPACE> <Nop>
 
-function! GetGitRoot()
-    return substitute(system("git rev-parse --show-toplevel"), '\n', '', 'g')
-endfunction
-
 " Space + p: fuzzy search files in repo
-nnoremap <silent> <leader>p :execute "FZF" GetGitRoot()<cr>
+nnoremap <silent> <leader>p :GFiles<CR>
 nnoremap <silent> <leader>P :FZF ~<cr>
 
 " Make Ripgrep ONLY search file contents and not filenames
@@ -99,9 +95,9 @@ nnoremap <silent> <leader>f :Rg <cr>
 nnoremap <silent> <leader>r :History: <cr>
 nnoremap <silent> <leader>e :e $MYVIMRC<cr>
 "" Center on search
-nnoremap n nzz  
-nnoremap <S-n> <S-n>zz
+" nnoremap n nzz  
+" nnoremap <S-n> <S-n>zz
 
 "" Shell
-set shell=bash
+set shell=$SHELL
 set shellcmdflag=-ilc
