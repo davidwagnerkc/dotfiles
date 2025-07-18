@@ -4,8 +4,9 @@ if ! tmux has-session -t jl 2>/dev/null; then
   export JL_PORT=$(shuf -i 10000-30000 -n1)
   export JL_TOKEN=$(openssl rand -hex 16)
   export JL_URL="https://$JL_OOD_HOST/node/$JL_HOST/$JL_PORT/lab?token=$JL_TOKEN"
+  NB_DIR=$HOME/git/research/notebooks
   tmux new -d -s jl
-  tmux send-keys -t jl "jupyter lab \
+  tmux send-keys -t jl "cd $NB_DIR; jupyter lab \
     --no-browser \
     --ip=0.0.0.0 \
     --port=$JL_PORT \

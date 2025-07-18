@@ -29,6 +29,7 @@ dependencies = [
     "torchaudio>=2.6.0",
     "torchvision>=0.21.0",
     "transformers>=4.48.3",
+    "wandb>=0.21.0",
 ]
 
 [tool.uv.sources]

@@ -80,7 +80,7 @@ let mapleader=" "
 nnoremap <SPACE> <Nop>
 
 " Space + p: fuzzy search files in repo
-nnoremap <silent> <leader>p :GFiles?<CR>
+nnoremap <silent> <leader>p :GFiles<CR>
 nnoremap <silent> <leader>P :FZF ~<cr>
 
 " Make Ripgrep ONLY search file contents and not filenames
