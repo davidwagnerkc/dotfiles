@@ -21,6 +21,7 @@
         gcc
         uv
         glibcLocales
+        awscli2
       ];
       shell = "${pkgs.bashInteractive}/bin/bash";
       shellHook = ''

@@ -1,4 +1,4 @@
-case "$(hostname)" in
+case "$(hostname -s)" in
   kc-sse-ml-ln01)
     conda deactivate || true
     conda deactivate || true
@@ -24,11 +24,13 @@ case "$(hostname)" in
     export PS1="λ₁ "
     ;;
   *)
+    echo "hostname did not match any known hosts."
+    export PS1="$ "
     ;;
 esac
 if [ -n "${IN_NIX_SHELL:-}" ]; then
     module purge
-    cd "$HOME/git/dotfiles/" && uv sync && source "$HOME/git/dotfiles/.venv/bin/activate" && cd
+    cd "$HOME/git/research/" && uv sync && source "$HOME/git/research/.venv/bin/activate" && cd
     export GIT_SSH_COMMAND='ssh -F ~/.ssh/config'
     export FZF_DEFAULT_COMMAND="fd --type f"
     export PATH="$HOME/.config/nvim/plugged/fzf/bin:$PATH"
@@ -42,7 +44,7 @@ deactivate_path() {
     PATH=$(
         echo "$PATH" \
             | tr ':' '\n' \
-            | grep -v '/home/dwcgt/git/dotfiles/.venv/bin' \
+            | grep -v '/home/dwcgt/git/research/.venv/bin' \
             | tr '\n' ':' \
             | sed 's/:$//'
     )

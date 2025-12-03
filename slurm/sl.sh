@@ -1,3 +1,40 @@
+: << 'EOF'
+(sl) entrypoint for research development environments, jobs, SLURM utilities, etc. 
+
+(sl dev) dev env entrypoint 
+  - Creates or re-uses sbatch job named "dev" on research partition
+  - Requests CPUS, GPUS, TIME
+  - sbatch entrypoint
+    - nix develop (uses ~/git/dotfiles/flake.nix)
+      - Creates or re-uses tmux session named "dev"
+      - Handles apt deps
+      - sources ~/.bashrc which in turn sources ~/.bashrc.slurmy 
+        - handles both non-nix and nix shell envs (login node vs job node)
+        - purge modules
+        - sync and activate venv (uses ~/git/research/pyproject.toml)
+        - vi, PATH, autocomplete, PS1, etc.
+      - Its own entrypoint is ~/git/dotfiles/slurm/start-tmux.sh
+        - Creates or re-uses tmux session named "jl"
+        - Assumes venv activated from above
+        - Starts jupyter lab in ~/git/research/notebooks
+        - URL written out to connection-url.txt
+      - Then sleeps forever
+  - srun interactive loging shell with nix develop entrypoint
+
+  Scripts:
+    sl.sh
+      -> flake.nix
+        -> .bashrc (.bashrc.slurmy)
+          -> pyproject.toml
+          -> start-tmux.sh
+
+  Shells:
+    mbp bash
+      -> ssh login node bash
+        -> sbatch --wrap compute node bash
+          -> nix develop bash
+            -> tmux session "dev"
+EOF
 mapfile -t nodes < <(sinfo -h -p research -o "%n %G" | grep -v null | awk '{print $1}' | sort)
 host=$(hostname -s)
 host_base="kc-sse-ml-rn"
@@ -11,19 +48,16 @@ cp () {
 case "${1:-}" in
   switch)
     if [[ -n $VIRTUAL_ENV ]]; then
-      # echo "deactivate && deactivate_path && conda activate pderefiner" | cp
       cmd="deactivate && deactivate_path && conda activate pderefiner"
     else
-      # echo "conda deactivate && source $HOME/git/dotfiles/.venv/bin/activate" | cp
-      cmd="conda deactivate && source $HOME/git/dotfiles/.venv/bin/activate"
+      cmd="conda deactivate && source $HOME/git/research/.venv/bin/activate"
     fi
     tmux send-keys -R C-m
     tmux send-keys -R C-m
     tmux send-keys -R -l "${cmd}"
     ;;
   status)
-    eval "$(conda shell.bash hook)"
-    conda activate zdev
+    source $HOME/git/research/.venv/bin/activate
     for node in "${nodes[@]}"; do
       echo -n "${node: -2} "
       squeue -h -w $node -t R -o "%C %b %G" \
@@ -36,11 +70,11 @@ for line in sys.stdin:
     try:
         num_gpus = int(gpu.split(':')[-1])
     except:
-        pass
+        num_gpus = 0
     try:
         num_cpus = int(cpu.split(':')[-1])
     except:
-        pass
+        num_cpus = 0
     gpus += num_gpus
     cpus += num_cpus
 print(f'CPU: {cpus:2d}/128 GPU:{gpus}/8')
@@ -97,9 +131,9 @@ print(f'CPU: {cpus:2d}/128 GPU:{gpus}/8')
     [[ -t 0 ]] || base64 | tr -d '\n' | xargs -0 printf '\e]52;c;%s\a'
     ;;
   dev)
-    CPUS=16
+    CPUS=32
     GPUS=1
-    TIME=08:00:00 
+    TIME=02:00:00 
     shift
     while getopts ":c:g:t:" opt; do
       echo $opt
@@ -128,6 +162,8 @@ print(f'CPU: {cpus:2d}/128 GPU:{gpus}/8')
     if [[ -n $JOB_ID ]]; then
         echo "Found running job $JOB_ID."
     else
+        # --exclude=kc-sse-ml-rn04,kc-sse-ml-rn05 \
+        # --exclude=kc-sse-ml-rn04 \
         JOB_ID=$(
             sbatch \
                 --parsable \
