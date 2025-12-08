@@ -8,13 +8,13 @@ case "$(hostname -s)" in
   kc-sse-ml-rn00)
     export PS1="α₀ "
     ;;
-  kc-sse-ml-rn00)
+  kc-sse-ml-rn01)
     export PS1="α₁ "
     ;;
-  kc-sse-ml-rn00)
+  kc-sse-ml-rn02)
     export PS1="α₂ "
     ;;
-  kc-sse-ml-rn00)
+  kc-sse-ml-rn03)
     export PS1="α₃ "
     ;;
   kc-sse-ml-rn04)

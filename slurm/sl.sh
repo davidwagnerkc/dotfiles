@@ -131,7 +131,7 @@ print(f'CPU: {cpus:2d}/128 GPU:{gpus}/8')
     [[ -t 0 ]] || base64 | tr -d '\n' | xargs -0 printf '\e]52;c;%s\a'
     ;;
   dev)
-    CPUS=32
+    CPUS=16
     GPUS=1
     TIME=02:00:00 
     shift
