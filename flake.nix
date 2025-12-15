@@ -22,6 +22,8 @@
         uv
         glibcLocales
         awscli2
+        nload
+        s5cmd
       ];
       shell = "${pkgs.bashInteractive}/bin/bash";
       shellHook = ''
