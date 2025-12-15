@@ -133,7 +133,7 @@ print(f'CPU: {cpus:2d}/128 GPU:{gpus}/8')
   dev)
     CPUS=16
     GPUS=1
-    TIME=02:00:00 
+    TIME=07:00:00 
     shift
     while getopts ":c:g:t:" opt; do
       echo $opt
@@ -177,7 +177,7 @@ print(f'CPU: {cpus:2d}/128 GPU:{gpus}/8')
                 --error=/home/dwcgt/logs/%j.log \
                 --open-mode=append \
                 --export=NONE \
-                --wrap="NP_RUNTIME=bwrap nix develop $HOME/git/dotfiles/ --command $HOME/git/dotfiles/slurm/start-tmux.sh; sleep infinity"
+                --wrap="NP_RUNTIME=bwrap nix develop $HOME/git/dotfiles/ --command $HOME/git/dotfiles/slurm/start-tmux.sh && sleep infinity"
         )
         echo "Submitted job $JOB_ID — waiting for it to start…"
         while [[ $(squeue -h -j $JOB_ID -o "%T") != RUNNING ]]; do sleep 1; done
@@ -200,6 +200,59 @@ print(f'CPU: {cpus:2d}/128 GPU:{gpus}/8')
     host=${2:+-w $host_base$2}
     echo "Starting on $host..."
     srun -p research -t120 $host --pty bash -li
+    ;;
+  run)
+    CPUS=16
+    GPUS=1
+    TIME=07:00:00 
+    sbatch \
+        --parsable \
+        --job-name=dev \
+        --partition=research \
+        --ntasks=1 \
+        --cpus-per-task=$CPUS \
+        --gres=gpu:$GPUS \
+        --time=$TIME \
+        --output=/home/dwcgt/logs/%j.log \
+        --error=/home/dwcgt/logs/%j.log \
+        --open-mode=append \
+        --export=NONE \
+        --wrap="NP_RUNTIME=bwrap nix develop $HOME/git/dotfiles/ --command python $2"
+    ;;
+  qos)
+    sacctmgr show qos   format=Name%30,MaxTRES%50,GrpTRES%20,MaxWall,MaxJobs | egrep "(MaxTRES|acct-research)"
+    ;;
+  train)
+    CPUS=16
+    GPUS=1
+    TIME=07:00:00 
+    sbatch \
+        --partition=research \
+        --ntasks=1 \
+        --cpus-per-task=$CPUS \
+        --gres=gpu:$GPUS \
+        --time=$TIME \
+        --output=/home/dwcgt/logs/%j.log \
+        --error=/home/dwcgt/logs/%j.log \
+        --open-mode=append \
+        --export=NONE \
+        --wrap="NP_RUNTIME=bwrap nix develop $HOME/git/dotfiles/ --command python -m research.cli.train"
+    ;;
+  generate)
+    CPUS=16
+    GPUS=1
+    TIME=07:00:00 
+    sbatch \
+        --partition=research \
+        --ntasks=1 \
+        --cpus-per-task=$CPUS \
+        --gres=gpu:$GPUS \
+        --time=$TIME \
+        --output=/home/dwcgt/logs/%j.log \
+        --error=/home/dwcgt/logs/%j.log \
+        --open-mode=append \
+        --export=NONE \
+        --wrap="NP_RUNTIME=bwrap nix develop $HOME/git/dotfiles/ --command python $HOME/git/research/curiosity_throughput/gen_in_mem.py"
     ;;
   edit)
     target=${2:-sl}
