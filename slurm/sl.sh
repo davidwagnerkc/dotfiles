@@ -132,7 +132,7 @@ print(f'CPU: {cpus:2d}/128 GPU:{gpus}/8')
     ;;
   dev)
     CPUS=16
-    GPUS=1
+    GPUS=0
     TIME=07:00:00 
     shift
     while getopts ":c:g:t:" opt; do
@@ -225,8 +225,9 @@ print(f'CPU: {cpus:2d}/128 GPU:{gpus}/8')
   train)
     CPUS=16
     GPUS=1
-    TIME=07:00:00 
+    TIME=04:00:00 
     sbatch \
+        --nodelist=kc-sse-ml-rn05 \
         --partition=research \
         --ntasks=1 \
         --cpus-per-task=$CPUS \
@@ -236,7 +237,7 @@ print(f'CPU: {cpus:2d}/128 GPU:{gpus}/8')
         --error=/home/dwcgt/logs/%j.log \
         --open-mode=append \
         --export=NONE \
-        --wrap="NP_RUNTIME=bwrap nix develop $HOME/git/dotfiles/ --command python -m research.cli.train"
+        --wrap="NP_RUNTIME=bwrap nix develop $HOME/git/dotfiles/ --command python -u -m research.cli.train"
     ;;
   generate)
     CPUS=16

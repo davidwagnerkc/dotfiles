@@ -24,6 +24,7 @@
         awscli2
         nload
         s5cmd
+        google-cloud-sdk
       ];
       shell = "${pkgs.bashInteractive}/bin/bash";
       shellHook = ''
