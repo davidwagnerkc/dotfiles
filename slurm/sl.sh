@@ -132,7 +132,7 @@ print(f'CPU: {cpus:2d}/128 GPU:{gpus}/8')
     ;;
   dev)
     CPUS=16
-    GPUS=0
+    GPUS=1
     TIME=07:00:00 
     shift
     while getopts ":c:g:t:" opt; do
@@ -163,13 +163,14 @@ print(f'CPU: {cpus:2d}/128 GPU:{gpus}/8')
         echo "Found running job $JOB_ID."
     else
         # --exclude=kc-sse-ml-rn04,kc-sse-ml-rn05 \
-        # --exclude=kc-sse-ml-rn04 \
         JOB_ID=$(
             sbatch \
+                -w kc-sse-ml-rn04,kc-sse-ml-rn05 \
                 --parsable \
                 --job-name=dev \
                 --partition=research \
                 --ntasks=1 \
+		--ntasks-per-node=1 \
                 --cpus-per-task=$CPUS \
                 --gres=gpu:$GPUS \
                 --time=$TIME \
@@ -206,6 +207,7 @@ print(f'CPU: {cpus:2d}/128 GPU:{gpus}/8')
     GPUS=1
     TIME=07:00:00 
     sbatch \
+        --nodelist=kc-sse-ml-rn05 \
         --parsable \
         --job-name=dev \
         --partition=research \
@@ -225,7 +227,8 @@ print(f'CPU: {cpus:2d}/128 GPU:{gpus}/8')
   train)
     CPUS=16
     GPUS=1
-    TIME=04:00:00 
+    TIME=07:00:00 
+    # --nodelist=kc-sse-ml-rn04,kc-sse-ml-rn05 \
     sbatch \
         --nodelist=kc-sse-ml-rn05 \
         --partition=research \
@@ -240,20 +243,24 @@ print(f'CPU: {cpus:2d}/128 GPU:{gpus}/8')
         --wrap="NP_RUNTIME=bwrap nix develop $HOME/git/dotfiles/ --command python -u -m research.cli.train"
     ;;
   generate)
-    CPUS=16
-    GPUS=1
-    TIME=07:00:00 
-    sbatch \
-        --partition=research \
-        --ntasks=1 \
-        --cpus-per-task=$CPUS \
-        --gres=gpu:$GPUS \
-        --time=$TIME \
-        --output=/home/dwcgt/logs/%j.log \
-        --error=/home/dwcgt/logs/%j.log \
-        --open-mode=append \
-        --export=NONE \
-        --wrap="NP_RUNTIME=bwrap nix develop $HOME/git/dotfiles/ --command python $HOME/git/research/curiosity_throughput/gen_in_mem.py"
+    for RANK in $(seq 0 7); do
+      CPUS=16
+      GPUS=1
+      TIME=00:15:00 
+      # --nodelist=kc-sse-ml-rn04,kc-sse-ml-rn05 \
+      sbatch \
+          --nodelist=kc-sse-ml-rn05 \
+          --partition=research \
+          --ntasks=1 \
+          --cpus-per-task=$CPUS \
+          --gres=gpu:$GPUS \
+          --time=$TIME \
+          --output=/home/dwcgt/logs/%j.log \
+          --error=/home/dwcgt/logs/%j.log \
+          --open-mode=append \
+          --export=NONE,RANK=$RANK \
+          --wrap="NP_RUNTIME=bwrap nix develop $HOME/git/dotfiles/ --command python $HOME/git/research/curiosity_throughput/create_dataset.py"
+      done
     ;;
   edit)
     target=${2:-sl}
