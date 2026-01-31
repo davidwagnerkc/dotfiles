@@ -1,29 +1,52 @@
-export REPO="https://raw.githubusercontent.com/davidwagnerkc/dotfiles/main"
+set -euo pipefail
 
-curl -s "$REPO/.bashrc" >> ~/.bashrc
-mkdir -p ~/.config/nvim/
-curl -s "$REPO/init.vim" -o ~/.config/nvim/init.vim
-curl -s "$REPO/.tmux.conf" -o ~/.tmux.conf
+REPO_URL="https://github.com/davidwagnerkc/dotfiles.git"
+REPO_DIR="$HOME/git/dotfiles"
+
 mkdir -p ~/git
 
-sudo apt-get update && sudo apt-get -y install \
+if [ ! -d "$REPO_DIR/.git" ]; then
+  git clone "$REPO_URL" "$REPO_DIR"
+fi
+
+if ! grep -qxF 'source ~/git/dotfiles/.bashrc' ~/.bashrc; then
+  echo 'source ~/git/dotfiles/.bashrc' >> ~/.bashrc
+fi
+
+mkdir -p ~/.config/nvim
+ln -sfn "$REPO_DIR/init.vim" ~/.config/nvim/init.vim
+ln -sfn "$REPO_DIR/.tmux.conf" ~/.tmux.conf
+
+sudo apt-get update
+sudo apt-get -y install \
+    curl \
+    git \
     ripgrep \
     fzf \
     tmux \
     tree \
     zip \
     unzip \
-    fd-find
-sudo ln -s $(which fdfind) /usr/local/bin/fd  # ~/.local/bin/fd
+    fd-find \
+    neovim \
+    nodejs \
+    docker.io
+sudo ln -sfn "$(command -v fdfind)" /usr/local/bin/fd  # ~/.local/bin/fd
+sudo systemctl enable --now docker
+sudo usermod -aG docker ubuntu
 
-curl -LO https://github.com/neovim/neovim/releases/download/stable/nvim.appimage
-chmod u+x nvim.appimage
-mkdir -p ~/.local/bin
-mv nvim.appimage ~/.local/bin/nvim
+curl -LsSf https://astral.sh/uv/install.sh | sh
+"$HOME/.local/bin/uv" sync --project "$REPO_DIR"
 
-wget https://nodejs.org/dist/v20.11.1/node-v20.11.1-linux-x64.tar.xz -O node.tar.xz
-sudo tar -xJf node.tar.xz -C /usr/local --strip-components=1
-rm node.tar.xz
+if [ -f "$REPO_DIR/.venv/bin/activate" ]; then
+  source "$REPO_DIR/.venv/bin/activate"
+fi
+
+nvim --headless \
+  -c "autocmd User PlugVimEnter quitall" \
+  -c "PlugInstall" \
+  -c "UpdateRemotePlugins" \
+  -c "qa"
 
 # neovim setup
 # 1. pip install pynvim

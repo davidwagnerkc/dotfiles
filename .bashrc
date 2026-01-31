@@ -20,5 +20,9 @@ export PATH="~/.local/bin:$PATH"
 conda config --set changeps1 False
 export PYTHONBREAKPOINT=ipdb.set_trace
 
+if [ -f ~/git/dotfiles/.venv/bin/activate ]; then
+  source ~/git/dotfiles/.venv/bin/activate
+fi
+
 ###############################################################################
 ###############################################################################
