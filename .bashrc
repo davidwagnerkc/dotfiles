@@ -16,13 +16,7 @@ if [ ! -f ~/.git-completion.bash ]; then
   curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -o ~/.git-completion.bash
 fi
 source ~/.git-completion.bash
-
-# Docker
-export DOCKER_BUILDKIT=1
-export COMPOSE_DOCKER_CLI_BUILD=1
-
 export PATH="~/.local/bin:$PATH"
-
 conda config --set changeps1 False
 export PYTHONBREAKPOINT=ipdb.set_trace
 
