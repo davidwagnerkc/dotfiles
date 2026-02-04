@@ -28,12 +28,19 @@ sudo apt-get -y install \
     zip \
     unzip \
     fd-find \
-    neovim \
-    nodejs \
     docker.io
 sudo ln -sfn "$(command -v fdfind)" /usr/local/bin/fd  # ~/.local/bin/fd
 sudo systemctl enable --now docker
 sudo usermod -aG docker ubuntu
+
+curl -LO https://github.com/neovim/neovim/releases/download/stable/nvim.appimage
+chmod u+x nvim.appimage
+mkdir -p ~/.local/bin
+mv nvim.appimage ~/.local/bin/nvim
+
+wget https://nodejs.org/dist/v20.11.1/node-v20.11.1-linux-x64.tar.xz -O node.tar.xz
+sudo tar -xJf node.tar.xz -C /usr/local --strip-components=1
+rm node.tar.xz
 
 curl -LsSf https://astral.sh/uv/install.sh | sh
 "$HOME/.local/bin/uv" sync --project "$REPO_DIR"
@@ -43,10 +50,10 @@ if [ -f "$REPO_DIR/.venv/bin/activate" ]; then
 fi
 
 nvim --headless \
-  -c "autocmd User PlugVimEnter quitall" \
-  -c "PlugInstall" \
-  -c "UpdateRemotePlugins" \
-  -c "qa"
+  +"silent! PlugInstall --sync" \
+  +"silent! PlugUpdate --sync" \
+  +"silent! UpdateRemotePlugins" \
+  +qa
 
 # neovim setup
 # 1. pip install pynvim
