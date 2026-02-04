@@ -49,20 +49,11 @@ if [ -f "$REPO_DIR/.venv/bin/activate" ]; then
   source "$REPO_DIR/.venv/bin/activate"
 fi
 
-nvim --headless \
+"$HOME/.local/bin/nvim" --headless \
   +"silent! PlugInstall --sync" \
   +"silent! PlugUpdate --sync" \
   +"silent! UpdateRemotePlugins" \
   +qa
-
-# neovim setup
-# 1. pip install pynvim
-# 2. vim (autoinstalls everything in init.vim)
-# 3. :UpdateRemotePlugings
-
-# jupyter
-# pip install jupyterlab jupyterlab-vim ipdb
-# https://github.com/johnnybarrels/jupyterlab_onedarkpro/pull/14#issuecomment-1906559911
 
 git config --global user.name "David Wagner"
 git config --global user.email "david@wagnerkc.com"
