@@ -62,3 +62,4 @@ git config --global user.name "David Wagner"
 git config --global user.email "david@wagnerkc.com"
 git config --global pull.rebase false
 cd ~/git/dotfiles && git remote set-url origin git@github.com:davidwagnerkc/dotfiles.git
+npm i -g @openai/codex
