@@ -33,10 +33,10 @@ sudo ln -sfn "$(command -v fdfind)" /usr/local/bin/fd  # ~/.local/bin/fd
 sudo systemctl enable --now docker
 sudo usermod -aG docker ubuntu
 
-curl -LO https://github.com/neovim/neovim/releases/download/stable/nvim.appimage
-chmod u+x nvim.appimage
+curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.appimage
+chmod u+x nvim-linux-x86_64.appimage
 mkdir -p ~/.local/bin
-mv nvim.appimage ~/.local/bin/nvim
+mv nvim-linux-x86_64.appimage ~/.local/bin/nvim
 
 wget https://nodejs.org/dist/v20.11.1/node-v20.11.1-linux-x64.tar.xz -O node.tar.xz
 sudo tar -xJf node.tar.xz -C /usr/local --strip-components=1
