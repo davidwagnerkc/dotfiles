@@ -33,7 +33,6 @@ sudo ln -sfn "$(command -v fdfind)" /usr/local/bin/fd  # ~/.local/bin/fd
 
 if ! command -v docker >/dev/null 2>&1; then
   curl -fsSL https://get.docker.com | sudo sh
-  sudo systemctl enable --now docker
   sudo usermod -aG docker ubuntu
 fi
 
