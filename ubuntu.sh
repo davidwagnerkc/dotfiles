@@ -45,6 +45,8 @@ rm node.tar.xz
 curl -LsSf https://astral.sh/uv/install.sh | sh
 "$HOME/.local/bin/uv" sync --project "$REPO_DIR"
 
+curl -fsSL https://claude.ai/install.sh | bash
+
 if [ -f "$REPO_DIR/.venv/bin/activate" ]; then
   source "$REPO_DIR/.venv/bin/activate"
 fi
