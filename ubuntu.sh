@@ -27,11 +27,14 @@ sudo apt-get -y install \
     tree \
     zip \
     unzip \
-    fd-find \
-    docker.io
+    fd-find
 sudo ln -sfn "$(command -v fdfind)" /usr/local/bin/fd  # ~/.local/bin/fd
-sudo systemctl enable --now docker
-sudo usermod -aG docker ubuntu
+
+
+if ! command -v docker >/dev/null 2>&1; then
+  curl -fsSL https://get.docker.com | sudo sh
+  sudo usermod -aG docker ubuntu
+fi
 
 curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.appimage
 chmod u+x nvim-linux-x86_64.appimage
@@ -54,3 +57,5 @@ fi
 git config --global user.name "David Wagner"
 git config --global user.email "david@wagnerkc.com"
 git config --global pull.rebase false
+cd ~/git/dotfiles && git remote set-url origin git@github.com:davidwagnerkc/dotfiles.git
+npm i -g @openai/codex
