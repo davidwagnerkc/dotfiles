@@ -51,12 +51,6 @@ if [ -f "$REPO_DIR/.venv/bin/activate" ]; then
   source "$REPO_DIR/.venv/bin/activate"
 fi
 
-"$HOME/.local/bin/nvim" --headless \
-  +"silent! PlugInstall --sync" \
-  +"silent! PlugUpdate --sync" \
-  +"silent! UpdateRemotePlugins" \
-  +qa
-
 git config --global user.name "David Wagner"
 git config --global user.email "david@wagnerkc.com"
 git config --global pull.rebase false
