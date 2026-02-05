@@ -49,6 +49,7 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 "$HOME/.local/bin/uv" sync --project "$REPO_DIR"
 
 curl -fsSL https://claude.ai/install.sh | bash
+npm i -g @openai/codex
 
 if [ -f "$REPO_DIR/.venv/bin/activate" ]; then
   source "$REPO_DIR/.venv/bin/activate"
@@ -58,4 +59,3 @@ git config --global user.name "David Wagner"
 git config --global user.email "david@wagnerkc.com"
 git config --global pull.rebase false
 cd ~/git/dotfiles && git remote set-url origin git@github.com:davidwagnerkc/dotfiles.git
-npm i -g @openai/codex
