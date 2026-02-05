@@ -27,7 +27,8 @@ sudo apt-get -y install \
     tree \
     zip \
     unzip \
-    fd-find
+    fd-find \
+    awscli
 sudo ln -sfn "$(command -v fdfind)" /usr/local/bin/fd  # ~/.local/bin/fd
 
 
