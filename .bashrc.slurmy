@@ -65,3 +65,7 @@ if [ ! -f ~/.git-completion.bash ]; then
 fi
 source ~/.git-completion.bash
 alias cl='claude'
+nix() {
+  echo "🚫 nix disabled on login node — use compute node via srun/sbatch"
+  return 1
+}
