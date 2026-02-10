@@ -50,7 +50,7 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 "$HOME/.local/bin/uv" sync --project "$REPO_DIR"
 
 curl -fsSL https://claude.ai/install.sh | bash
-npm i -g @openai/codex
+# npm i -g @openai/codex
 
 if [ -f "$REPO_DIR/.venv/bin/activate" ]; then
   source "$REPO_DIR/.venv/bin/activate"
