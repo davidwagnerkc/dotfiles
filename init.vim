@@ -67,6 +67,7 @@ set incsearch
 set ignorecase
 set smartcase
 
+set clipboard=unnamedplus
 
 if has('macunix')
   " let mapleader = \<Space>"
