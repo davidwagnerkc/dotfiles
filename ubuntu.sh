@@ -27,10 +27,21 @@ sudo apt-get -y install \
     tree \
     zip \
     unzip \
-    fd-find \
-    awscli
+    fd-find
 sudo ln -sfn "$(command -v fdfind)" /usr/local/bin/fd  # ~/.local/bin/fd
 
+if ! command -v aws >/dev/null 2>&1; then
+  curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+  unzip -o awscliv2.zip
+  sudo ./aws/install
+fi
+
+if ! command -v s5cmd >/dev/null 2>&1; then
+  curl -L https://github.com/peak/s5cmd/releases/download/v2.3.0/s5cmd_2.3.0_Linux-64bit.tar.gz -o s5cmd.tar.gz
+  tar xzf s5cmd.tar.gz s5cmd
+  sudo mv s5cmd /usr/local/bin/s5cmd
+  rm s5cmd.tar.gz
+fi
 
 if ! command -v docker >/dev/null 2>&1; then
   curl -fsSL https://get.docker.com | sudo sh
