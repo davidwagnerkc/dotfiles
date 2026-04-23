@@ -27,7 +27,8 @@ sudo apt-get -y install \
     tree \
     zip \
     unzip \
-    fd-find
+    fd-find \
+    nload
 sudo ln -sfn "$(command -v fdfind)" /usr/local/bin/fd  # ~/.local/bin/fd
 
 if ! command -v aws >/dev/null 2>&1; then
@@ -58,7 +59,7 @@ sudo tar -xJf node.tar.xz -C /usr/local --strip-components=1
 rm node.tar.xz
 
 curl -LsSf https://astral.sh/uv/install.sh | sh
-"$HOME/.local/bin/uv" sync --project "$REPO_DIR"
+# "$HOME/.local/bin/uv" sync --project "$REPO_DIR"
 
 curl -fsSL https://claude.ai/install.sh | bash
 # npm i -g @openai/codex
