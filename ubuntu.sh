@@ -1,5 +1,13 @@
 set -euo pipefail
 
+if [ "$EUID" -eq 0 ]; then
+  echo "Don't run as root — run as your normal user with sudo privileges." >&2
+  exit 1
+fi
+
+# Use the invoking user (preserves through sudo if needed)
+TARGET_USER="${SUDO_USER:-$(id -un)}"
+  
 REPO_URL="https://github.com/davidwagnerkc/dotfiles.git"
 REPO_DIR="$HOME/git/dotfiles"
 
@@ -46,7 +54,7 @@ fi
 
 if ! command -v docker >/dev/null 2>&1; then
   curl -fsSL https://get.docker.com | sudo sh
-  sudo usermod -aG docker ubuntu
+  sudo usermod -aG docker "$TARGET_USER"
 fi
 
 curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.appimage
