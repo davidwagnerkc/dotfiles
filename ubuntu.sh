@@ -36,7 +36,9 @@ sudo apt-get -y install \
     zip \
     unzip \
     fd-find \
-    nload
+    nload \
+    build-essential \
+    htop
 sudo ln -sfn "$(command -v fdfind)" /usr/local/bin/fd  # ~/.local/bin/fd
 
 if ! command -v aws >/dev/null 2>&1; then
